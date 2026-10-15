@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian-950: #070A10;
+  --color-obsidian-900: #0B0F19;
+  --color-obsidian-850: #0F1523;
+  --color-obsidian-800: #131927;
+  --color-obsidian-700: #1E293B;
+  --color-obsidian-600: #334155;
+  --color-obsidian-500: #475569;
+}
+
+@keyframes drift1 {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(120px, 80px) scale(1.12); }
+  66% { transform: translate(-80px, 160px) scale(0.92); }
+  100% { transform: translate(60px, -40px) scale(1.05); }
+}
+
+@keyframes drift2 {
+  0% { transform: translate(0px, 0px) scale(1.05); }
+  33% { transform: translate(-140px, -90px) scale(0.95); }
+  66% { transform: translate(100px, -60px) scale(1.15); }
+  100% { transform: translate(-50px, 100px) scale(1); }
+}
+
+@keyframes drift3 {
+  0% { transform: translate(0px, 0px) scale(0.95); }
+  50% { transform: translate(90px, -110px) scale(1.18); }
+  100% { transform: translate(-70px, 70px) scale(1); }
+}
+
+.animate-orb-drift-1 {
+  animation: drift1 24s ease-in-out infinite alternate;
+}
+
+.animate-orb-drift-2 {
+  animation: drift2 30s ease-in-out infinite alternate-reverse;
+}
+
+.animate-orb-drift-3 {
+  animation: drift3 28s ease-in-out infinite alternate;
+}
+
+/* Custom Liquid Glass Utility Classes */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.16),
+    inset 1px 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 8px 32px 0 rgba(0, 0, 0, 0.45);
+}
+
+.liquid-glass-dense {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(36px);
+  -webkit-backdrop-filter: blur(36px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.25),
+    0 12px 40px 0 rgba(0, 0, 0, 0.6);
+}
+
+.liquid-glass-subtle {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.liquid-card-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-card-hover:hover {
+  background: rgba(255, 255, 255, 0.075);
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 2px 0 rgba(255, 255, 255, 0.3),
+    inset 1px 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 16px 48px 0 rgba(0, 0, 0, 0.65);
+}
+
+/* Custom Sleek Monochromatic Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+/* ── Live Telemetry Cybernetic Animations ───────────────────────────────── */
+@keyframes radarSweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes laserScan {
+  0% { top: -2%; opacity: 0; }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { top: 102%; opacity: 0; }
+}
+
+@keyframes conduitFlow {
+  from { stroke-dashoffset: 40; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes conduitFlowReverse {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: 40; }
+}
+
+@keyframes spinClockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinCounterClockwise {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes eqBounce {
+  0%, 100% { height: 20%; }
+  50% { height: 95%; }
+}
+
+@keyframes hudPulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
+@keyframes sparkFlash {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.animate-radar-sweep {
+  animation: radarSweep 6s linear infinite;
+  transform-origin: center center;
+}
+
+.animate-laser-scan {
+  animation: laserScan 4.5s ease-in-out infinite;
+}
+
+.animate-conduit-flow {
+  stroke-dasharray: 4 6;
+  animation: conduitFlow 1.2s linear infinite;
+}
+
+.animate-conduit-flow-fast {
+  stroke-dasharray: 6 8;
+  animation: conduitFlow 0.8s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spinClockwise 8s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+  animation: spinCounterClockwise 12s linear infinite;
+}
+
+.animate-hud-pulse {
+  animation: hudPulse 2.5s ease-in-out infinite;
+}
+
