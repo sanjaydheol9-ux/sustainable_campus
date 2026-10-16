@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
-from sqlmodel import Session, select
-from app.core.db import get_session, engine
+from sqlmodel import Session, select, delete
+from app.core.db import get_session, engine, create_db_and_tables
 from app.models import Zone, SensorReading
 
 # Predefined zones matching the PRD
@@ -71,9 +71,11 @@ def seed_zones_and_readings():
     """Create zones and a 24‑hour window of seeded telemetry.
     All timestamps are UTC and spaced 15 minutes apart.
     """
+    create_db_and_tables()
     with Session(engine) as session:
         # Clear existing data (for repeatable demos)
-        session.exec(select(Zone)).delete()
+        session.exec(delete(SensorReading))
+        session.exec(delete(Zone))
         session.commit()
 
         zones = []

@@ -1,4 +1,5 @@
 from sqlmodel import SQLModel, Field, Relationship
+from sqlalchemy import Column, JSON
 from datetime import datetime
 from typing import Optional, List, Dict, Any
 
@@ -25,7 +26,7 @@ class SensorReading(SQLModel, table=True):
     timestamp: datetime
     source: str  # simulated|sensor|manual|vision
     quality: Optional[str] = None
-    metadata_json: Optional[Dict[str, Any]] = None
+    metadata_json: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))
     zone: Zone = Relationship(back_populates="readings")
 
 class Alert(SQLModel, table=True):
@@ -35,7 +36,7 @@ class Alert(SQLModel, table=True):
     severity: str  # critical|watch|info
     title: str
     description: str
-    evidence_json: Optional[Dict[str, Any]] = None
+    evidence_json: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))
     status: str = "open"  # open|acknowledged|resolved
     created_at: datetime = Field(default_factory=datetime.utcnow)
     acknowledged_at: Optional[datetime] = None
@@ -46,7 +47,7 @@ class VisionEvent(SQLModel, table=True):
     zone_id: int = Field(foreign_key="zone.id")
     image_path: Optional[str] = None
     model_name: Optional[str] = None
-    detections_json: Optional[Dict[str, Any]] = None
+    detections_json: Optional[Dict[str, Any]] = Field(default=None, sa_column=Column(JSON))
     source: str  # manual|sample|model
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
@@ -56,7 +57,7 @@ class Recommendation(SQLModel, table=True):
     context_hash: str
     provider: str
     model: str
-    result_json: Dict[str, Any]
+    result_json: Dict[str, Any] = Field(default_factory=dict, sa_column=Column(JSON))
     created_at: datetime = Field(default_factory=datetime.utcnow)
     fallback_used: bool = False
 
@@ -64,6 +65,6 @@ class SustainabilityReport(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     period_start: datetime
     period_end: datetime
-    summary_json: Dict[str, Any]
-    source_snapshot_json: Dict[str, Any]
+    summary_json: Dict[str, Any] = Field(default_factory=dict, sa_column=Column(JSON))
+    source_snapshot_json: Dict[str, Any] = Field(default_factory=dict, sa_column=Column(JSON))
     created_at: datetime = Field(default_factory=datetime.utcnow)

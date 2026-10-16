@@ -3,6 +3,7 @@ from pathlib import Path
 
 # Database file location (relative to project root)
 DB_PATH = Path(__file__).resolve().parents[2] / "data" / "campus.db"
+DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 engine = create_engine(f"sqlite:///{DB_PATH}", echo=False)
 
 def create_db_and_tables():

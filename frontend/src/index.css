@@ -1,185 +1,158 @@
 @import "tailwindcss";
 
+/* ========================================
+   DESIGN TOKENS — Sustainable Campus
+   ========================================
+   
+   Color Palette:
+   - Ink/navy (dark surfaces): --color-ink, --color-surface-raised, --color-border-dark
+   - Light mode: --color-bg-light, --color-surface-light, --color-border-light
+   - Text: --color-text-primary, --color-text-secondary (contextual)
+   - Brand accent: --color-accent (deep teal)
+   - Status: healthy sage, watch ochre, critical brick, unknown slate
+   
+   Typography:
+   - Display: Fraunces (headings, landing)
+   - UI/Body: Manrope
+   - Mono: IBM Plex Mono (numbers, IDs, timestamps)
+   
+   Scale: 12 / 14 / 16 / 20 / 28 / 40 / 64
+   ======================================== */
+
 @theme {
-  --color-obsidian-950: #070A10;
-  --color-obsidian-900: #0B0F19;
-  --color-obsidian-850: #0F1523;
-  --color-obsidian-800: #131927;
-  --color-obsidian-700: #1E293B;
-  --color-obsidian-600: #334155;
-  --color-obsidian-500: #475569;
+  /* Dark surfaces */
+  --color-ink: #0F1B2D;
+  --color-surface-raised: #16263C;
+  --color-border-dark: #263A55;
+
+  /* Light surfaces */
+  --color-bg-warm: #F7F5F0;
+  --color-surface-white: #FFFFFF;
+  --color-border-light: #E4E0D6;
+
+  /* Text on light */
+  --color-text-primary-light: #1B2433;
+  --color-text-secondary-light: #5B6B80;
+
+  /* Text on dark */
+  --color-text-primary-dark: #E8ECF2;
+  --color-text-secondary-dark: #9AA8BB;
+
+  /* Accent */
+  --color-accent: #2F6F73;
+  --color-accent-hover: #285F63;
+  --color-accent-tint: #DCEBEA;
+
+  /* Status */
+  --color-healthy: #5E8C6A;
+  --color-watch: #B88A3B;
+  --color-critical: #A8483F;
+  --color-unknown: #7A8797;
+
+  /* Fonts */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@keyframes drift1 {
-  0% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(120px, 80px) scale(1.12); }
-  66% { transform: translate(-80px, 160px) scale(0.92); }
-  100% { transform: translate(60px, -40px) scale(1.05); }
+/* CSS Custom Properties for theme switching */
+:root {
+  /* Light theme (default) */
+  --bg: var(--color-bg-warm);
+  --surface: var(--color-surface-white);
+  --border: var(--color-border-light);
+  --text-primary: var(--color-text-primary-light);
+  --text-secondary: var(--color-text-secondary-light);
+  color-scheme: light;
 }
 
-@keyframes drift2 {
-  0% { transform: translate(0px, 0px) scale(1.05); }
-  33% { transform: translate(-140px, -90px) scale(0.95); }
-  66% { transform: translate(100px, -60px) scale(1.15); }
-  100% { transform: translate(-50px, 100px) scale(1); }
+.dark {
+  --bg: var(--color-ink);
+  --surface: var(--color-surface-raised);
+  --border: var(--color-border-dark);
+  --text-primary: var(--color-text-primary-dark);
+  --text-secondary: var(--color-text-secondary-dark);
+  color-scheme: dark;
 }
 
-@keyframes drift3 {
-  0% { transform: translate(0px, 0px) scale(0.95); }
-  50% { transform: translate(90px, -110px) scale(1.18); }
-  100% { transform: translate(-70px, 70px) scale(1); }
+/* Base styles */
+html {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.animate-orb-drift-1 {
-  animation: drift1 24s ease-in-out infinite alternate;
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background-color 0.3s var(--ease-out-expo), color 0.3s var(--ease-out-expo);
 }
 
-.animate-orb-drift-2 {
-  animation: drift2 30s ease-in-out infinite alternate-reverse;
+/* Focus ring - accessible teal */
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-.animate-orb-drift-3 {
-  animation: drift3 28s ease-in-out infinite alternate;
+/* Tabular numbers for data */
+.font-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
-/* Custom Liquid Glass Utility Classes */
-.liquid-glass {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: 
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.16),
-    inset 1px 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 8px 32px 0 rgba(0, 0, 0, 0.45);
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-.liquid-glass-dense {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(36px);
-  -webkit-backdrop-filter: blur(36px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 
-    inset 0 1px 2px 0 rgba(255, 255, 255, 0.25),
-    0 12px 40px 0 rgba(0, 0, 0, 0.6);
+/* Scrollbar styling for dark theme */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.liquid-glass-subtle {
-  background: rgba(255, 255, 255, 0.025);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+.dark ::-webkit-scrollbar-track {
+  background: var(--color-ink);
 }
 
-.liquid-card-hover {
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-border-dark);
+  border-radius: 4px;
 }
 
-.liquid-card-hover:hover {
-  background: rgba(255, 255, 255, 0.075);
-  border-color: rgba(255, 255, 255, 0.22);
-  transform: translateY(-2px);
-  box-shadow: 
-    inset 0 1px 2px 0 rgba(255, 255, 255, 0.3),
-    inset 1px 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 16px 48px 0 rgba(0, 0, 0, 0.65);
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary-dark);
 }
 
-/* Custom Sleek Monochromatic Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* Print styles */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; color: black; }
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
+.skeleton {
+  background: linear-gradient(90deg, #e2e0db 25%, #ece9e3 50%, #e2e0db 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.24);
+.dark .skeleton {
+  background: linear-gradient(90deg, #1a2d42 25%, #223750 50%, #1a2d42 75%);
+  background-size: 200% 100%;
 }
-
-/* ── Live Telemetry Cybernetic Animations ───────────────────────────────── */
-@keyframes radarSweep {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes laserScan {
-  0% { top: -2%; opacity: 0; }
-  10% { opacity: 0.8; }
-  90% { opacity: 0.8; }
-  100% { top: 102%; opacity: 0; }
-}
-
-@keyframes conduitFlow {
-  from { stroke-dashoffset: 40; }
-  to { stroke-dashoffset: 0; }
-}
-
-@keyframes conduitFlowReverse {
-  from { stroke-dashoffset: 0; }
-  to { stroke-dashoffset: 40; }
-}
-
-@keyframes spinClockwise {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes spinCounterClockwise {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
-}
-
-@keyframes eqBounce {
-  0%, 100% { height: 20%; }
-  50% { height: 95%; }
-}
-
-@keyframes hudPulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.03); }
-}
-
-@keyframes sparkFlash {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
-
-.animate-radar-sweep {
-  animation: radarSweep 6s linear infinite;
-  transform-origin: center center;
-}
-
-.animate-laser-scan {
-  animation: laserScan 4.5s ease-in-out infinite;
-}
-
-.animate-conduit-flow {
-  stroke-dasharray: 4 6;
-  animation: conduitFlow 1.2s linear infinite;
-}
-
-.animate-conduit-flow-fast {
-  stroke-dasharray: 6 8;
-  animation: conduitFlow 0.8s linear infinite;
-}
-
-.animate-spin-slow {
-  animation: spinClockwise 8s linear infinite;
-}
-
-.animate-spin-reverse-slow {
-  animation: spinCounterClockwise 12s linear infinite;
-}
-
-.animate-hud-pulse {
-  animation: hudPulse 2.5s ease-in-out infinite;
-}
-
